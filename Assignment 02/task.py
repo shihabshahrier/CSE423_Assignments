@@ -234,7 +234,7 @@ def gamePlay():
         DIMOND.y = HEIGHT - 50
         DIMOND.color = (random.random(), random.random(), random.random())
         if dimond_speed <= dimond_speed_limit:
-            dimond_speed += 0.5
+            DIMOND.speed += 0.5
         if CATCHER.speed <= catcher_speed_limit:
             CATCHER.speed += 0.3
 
@@ -263,20 +263,16 @@ def mouseClick(button, state, x, y):
     if button == GLUT_LEFT_BUTTON and state == GLUT_DOWN:
         if x >= 250 and x <= 350 and y >= 0 and y <= 100 and RUNNING:
             GAME_PLAY = not GAME_PLAY
-            print("########################## Mouse Click")
+            # print("########################## Mouse Click")
         elif x >= 0 and x <= 100 and y >= 0 and y <= 100:
             reset()
         elif x >= 500 and x <= 600 and y >= 0 and y <= 100:
-            GameOver()
-
-
-def GameOver():
-    RUNNING = False
-    GAME_PLAY = False
-    print("Goodbye")
-    print("Score: ", POINT)
-    glutLeaveMainLoop()
-    os._exit(0)
+            RUNNING = False
+            GAME_PLAY = False
+            print("Goodbye")
+            print("Score: ", POINT)
+            glutLeaveMainLoop()
+            os._exit(0)
 
 
 def reset():

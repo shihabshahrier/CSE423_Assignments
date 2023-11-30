@@ -6,8 +6,8 @@ import random as r
 HEIGHT, WIDTH = 800, 800
 BACKGROUND_COLOR = (0.0, 0.0, 0.0, 0.0)
 CIRCLEs = []
-Rate = 1
-R = 7
+Rate = 1.2
+R = 2
 
 
 def draw_points(x, y, size):
@@ -69,10 +69,9 @@ class Circle:
 def mouseClick(button, state, x, y):
     global CIRCLEs
     if button == GLUT_LEFT_BUTTON and state == GLUT_DOWN:
-        if x > 100 and x < WIDTH - 100 and y > 100 and y < HEIGHT - 100:
+        if x > 50 and x < WIDTH - 50 and y > 50 and y < HEIGHT - 50:
             circle = Circle(x, HEIGHT - y, R)
             CIRCLEs.append(circle)
-            print(CIRCLEs)
 
 
 def iterate():
@@ -111,7 +110,7 @@ def main():
     glutInitDisplayMode(GLUT_RGBA)
     glutInitWindowSize(WIDTH, HEIGHT)  # window size
     glutInitWindowPosition(0, 0)
-    wind = glutCreateWindow(b"Task 01")  # window name
+    wind = glutCreateWindow("Task 01")  # window name
 
     glutDisplayFunc(showScreen)
 

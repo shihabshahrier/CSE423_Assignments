@@ -1,6 +1,8 @@
 from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
+
+
 import random as r
 
 HEIGHT, WIDTH = 800, 800
@@ -8,6 +10,7 @@ BACKGROUND_COLOR = (0.0, 0.0, 0.0, 0.0)
 CIRCLEs = []
 Rate = 1.2
 R = 2
+PLAY = True
 
 
 def draw_points(x, y, size):
@@ -74,6 +77,16 @@ def mouseClick(button, state, x, y):
             CIRCLEs.append(circle)
 
 
+def keyPressed(key, x, y):
+    global PLAY, Rate
+    if key == b" ":
+        PLAY = not PLAY
+    elif key == GLUT_KEY_RIGHT:
+        Rate += 0.2
+    elif key == GLUT_KEY_LEFT:
+        Rate -= 0.2
+
+
 def iterate():
     glViewport(0, 0, WIDTH, HEIGHT)
     glMatrixMode(GL_PROJECTION)
@@ -90,7 +103,10 @@ def circleAnimation():
         if circle.isNotInside():
             CIRCLEs.pop(i)
             continue
-        circle.update()
+        if not PLAY:
+            circle.draw()
+        else:
+            circle.update()
 
 
 def showScreen():
@@ -101,6 +117,7 @@ def showScreen():
     iterate()
 
     circleAnimation()
+
     glutSwapBuffers()
 
 
@@ -114,7 +131,9 @@ def main():
 
     glutDisplayFunc(showScreen)
 
-    # glutKeyboardFunc(keyPressed)
+    glutKeyboardFunc(keyPressed)
+    glutSpecialFunc(keyPressed)
+
     glutMouseFunc(mouseClick)
 
     glutIdleFunc(showScreen)
